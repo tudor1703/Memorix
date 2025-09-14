@@ -1,0 +1,22 @@
+# Mediul virtual
+venv/
+env/
+
+# Fișiere Python generate
+__pycache__/
+*.pyc
+*.pyo
+
+# Fișiere de baze de date
+db.sqlite3
+
+# Setări locale
+*.log
+*.env
+
+# Folderul static colectat (dacă îl folosești)
+staticfiles/
+
+# Alte foldere generate de IDE
+.vscode/
+.idea/
