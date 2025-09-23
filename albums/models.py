@@ -10,7 +10,7 @@ class Album(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    share_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True, null=False)
+    share_token = models.UUIDField(default=uuid.uuid4, editable=False, unique=True)
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL,
