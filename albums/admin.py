@@ -23,7 +23,7 @@ class AlbumAdmin(admin.ModelAdmin):
     def photo_count(self, obj):
         return obj.photos.count()
 
-    @admin.display(description="PhoParticipantstos")
+    @admin.display(description="Participants")
     def participant_count(self, obj):
         return obj.emails.count()
 
