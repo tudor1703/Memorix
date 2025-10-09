@@ -1,5 +1,9 @@
 from django.contrib import admin
+from django.urls import path, reverse
+from django.utils.html import format_html
+
 from .models import Album, AlbumPhoto, AlbumEmail
+from .views import send_emails_view
 
 class AlbumPhotoInline(admin.TabularInline):
     model = AlbumPhoto
@@ -32,6 +36,23 @@ class AlbumAdmin(admin.ModelAdmin):
     @admin.action(description="Delete selected albums")
     def delete_selected_albums(self, request, queryset):
         queryset.delete()
+    
+    def get_urls(self):
+        urls = super().get_urls()
+        custom_urls = [
+            path('<int:album_id>/send_emails/',
+                 self.admin_site.admin_view(send_emails_view),
+                 name='albums_album_send_emails'),
+        ]
+        return custom_urls + urls
+
+    def change_view(self, request, object_id, form_url='', extra_context=None):
+        extra_context = extra_context or {}
+        send_url = reverse('admin:albums_album_send_emails', args=[object_id])
+        extra_context['send_emails_button'] = format_html(
+            '<a class="button" href="{}">Send Emails</a>', send_url
+        )
+        return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
 @admin.register(AlbumPhoto)
 class AlbumPhotoAdmin(admin.ModelAdmin):

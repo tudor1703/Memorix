@@ -1,0 +1,30 @@
+{% extends "admin/change_form.html" %}
+{% load static %}
+
+{% block object-tools-items %}
+    {{ block.super }}
+    {% if send_emails_button %}
+        <li>
+            {{ send_emails_button|safe }}
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script>
+    (function() {
+        var params = new URLSearchParams(window.location.search);
+        if (params.get('emails_sent') === '1') {
+            window.addEventListener('DOMContentLoaded', function() {
+                setTimeout(function() {
+                    var msgList = document.querySelector('.messagelist');
+                    if (msgList) {
+                        msgList.style.display = 'none';
+                    }
+                }, 2000);
+            });
+        }
+    })();
+    </script>
+{% endblock %}
