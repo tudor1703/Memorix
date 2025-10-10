@@ -1,21 +1,23 @@
 from django.contrib import admin
 from django.urls import path, reverse
 from django.utils.html import format_html
+from unfold.admin import ModelAdmin, TabularInline
+
 
 from .models import Album, AlbumPhoto, AlbumEmail
 from .views import send_emails_view
 
-class AlbumPhotoInline(admin.TabularInline):
+class AlbumPhotoInline(TabularInline):
     model = AlbumPhoto
     extra = 1
     readonly_fields = ("uploaded_at",)
 
-class AlbumEmailInline(admin.TabularInline):
+class AlbumEmailInline(TabularInline):
     model = Album.emails.through
     extra = 1
 
 @admin.register(Album)
-class AlbumAdmin(admin.ModelAdmin):
+class AlbumAdmin(ModelAdmin):
     list_display = ("title", "user", "created_at", "photo_count", "participant_count")
     search_fields = ("title", "user__email")
     inlines = [AlbumPhotoInline, AlbumEmailInline]
