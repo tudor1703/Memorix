@@ -6,6 +6,7 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('albums/', include('albums.urls')),
     path('', lambda request: render(request, '404.html', status=404)),
 ]
 
