@@ -15,3 +15,15 @@ def send_emails_view(request, album_id):
 
     change_url = reverse("admin:albums_album_change", args=[album_id])
     return redirect(f"{change_url}?emails_sent=1")
+
+
+def album_view(request, album_id):
+    """View for displaying an album with its photos"""
+    album = get_object_or_404(Album, id=album_id)
+    photos = album.photos.all()
+    
+    context = {
+        'album': album,
+        'photos': photos,
+    }
+    return render(request, 'albums/album_view.html', context)

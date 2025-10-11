@@ -3,6 +3,11 @@
 
 {% block object-tools-items %}
     {{ block.super }}
+    <!-- {% if view_album_button %}
+        <li>
+            {{ view_album_button|safe }}
+        </li>
+    {% endif %} -->
     {% if send_emails_button %}
         <li>
             {{ send_emails_button|safe }}
