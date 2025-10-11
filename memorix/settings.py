@@ -25,8 +25,9 @@ DEBUG = os.getenv("DEBUG", "True").lower() == "true"
 
 ALLOWED_HOSTS = ["memorix.info", "www.memorix.info", "localhost", "127.0.0.1"]
 
+# SITE_DOMAIN = "https://memorix.info"  <-- IMPORTANT: this comment will be code in production
 
-# Application definition
+
 
 INSTALLED_APPS = [
     'django.contrib.admin',

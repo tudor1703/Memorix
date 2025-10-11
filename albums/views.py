@@ -17,9 +17,8 @@ def send_emails_view(request, album_id):
     return redirect(f"{change_url}?emails_sent=1")
 
 
-def album_view(request, album_id):
-    """View for displaying an album with its photos"""
-    album = get_object_or_404(Album, id=album_id)
+def album_view(request, share_token):
+    album = get_object_or_404(Album, share_token=share_token)
     photos = album.photos.all()
     
     context = {

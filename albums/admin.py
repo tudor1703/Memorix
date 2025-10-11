@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, reverse
 from django.utils.html import format_html
@@ -33,17 +34,10 @@ class AlbumAdmin(admin.ModelAdmin):
 
     @admin.display(description="Album URL")
     def view_album_link(self, obj):
-        if obj.id:
-            from django.contrib.sites.shortcuts import get_current_site
-            from django.http import HttpRequest
-            
-            # Create a mock request to get the current site
-            request = HttpRequest()
-            request.META['HTTP_HOST'] = '127.0.0.1:8000'  # For development
-            request.META['wsgi.url_scheme'] = 'http'
-            
-            url = reverse('albums:album_view', args=[obj.id])
-            full_url = f"http://127.0.0.1:8000{url}"
+        if obj.share_token:
+            url = reverse('albums:album_view', args=[obj.share_token])
+            domain = getattr(settings, 'SITE_DOMAIN', 'http://127.0.0.1:8000')
+            full_url = f"{domain}{url}"
             return format_html('<a href="{}">{}</a>', full_url, full_url)
         return "-"
 
@@ -65,7 +59,8 @@ class AlbumAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
         send_url = reverse('admin:albums_album_send_emails', args=[object_id])
-        view_url = reverse('albums:album_view', args=[object_id])
+        album = Album.objects.get(pk=object_id)
+        view_url = reverse('albums:album_view', args=[album.share_token])
         extra_context['send_emails_button'] = format_html(
             '<a class="button" href="{}">Send Emails</a>', send_url
         )
