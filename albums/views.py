@@ -7,6 +7,7 @@ from .models import Album
 def send_emails_view(request, album_id):
     album = get_object_or_404(Album, id=album_id)
     recipients = [e.email for e in album.emails.all()]
+    full_url = request.build_absolute_uri(album.get_absolute_url())
 
     messages.success(
         request,

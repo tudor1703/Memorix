@@ -10,5 +10,5 @@ urlpatterns = [
     path('', lambda request: render(request, '404.html', status=404)),
 ]
 
-if settings.DEBUG:  # doar în mod de dezvoltare
+if settings.DEBUG: 
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

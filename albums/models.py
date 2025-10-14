@@ -1,3 +1,4 @@
+from django.urls import reverse
 from django.db import models
 from django.conf import settings
 import uuid
@@ -24,7 +25,9 @@ class Album(models.Model):
 
     def __str__(self):
         return self.title
-
+    
+    def get_absolute_url(self):
+        return reverse('albums:album_view', kwargs={'share_token': self.share_token})
 
 class AlbumEmail(models.Model):
     email = models.EmailField(unique=True)
