@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ album.title }} - Memorix</title>
+    <link rel="stylesheet" href="{% static 'albums/css/album_view.css' %}">
+    <script src="{% static 'albums/js/album_view.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>{{ album.title }}</h1>
+            {% if album.description %}
+                <p>{{ album.description }}</p>
+            {% endif %}
+        </div>
+        
+        <div class="content">
+            {% if photos %}
+                <div class="photo-grid">
+                    {% for photo in photos %}
+                        <div class="photo-item">
+                            <img src="{{ photo.photo.url }}" alt="{{ photo.caption|default:album.title }}">
+                            {% if photo.caption %}
+                                <div class="photo-caption">
+                                    {{ photo.caption }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="no-photos">
+                    <h3>No photos yet</h3>
+                    <p>This album doesn't have any photos yet.</p>
+                </div>
+            {% endif %}
+            
+            <div style="text-align: center;">
+                <button onclick="goBack()" class="back-button">← Back</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

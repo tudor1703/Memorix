@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.contrib import admin
 from django.urls import path, reverse
 from django.utils.html import format_html
@@ -16,12 +17,12 @@ class AlbumEmailInline(admin.TabularInline):
 
 @admin.register(Album)
 class AlbumAdmin(admin.ModelAdmin):
-    list_display = ("title", "user", "created_at", "photo_count", "participant_count")
+    list_display = ("title", "user", "created_at", "photo_count", "participant_count", "view_album_link")
     search_fields = ("title", "user__email")
     inlines = [AlbumPhotoInline, AlbumEmailInline]
     exclude = ("emails",)
 
-    readonly_fields = ("share_token",)
+    readonly_fields = ("view_album_link",)
 
     @admin.display(description="Photos")
     def photo_count(self, obj):
@@ -30,6 +31,13 @@ class AlbumAdmin(admin.ModelAdmin):
     @admin.display(description="Participants")
     def participant_count(self, obj):
         return obj.emails.count()
+
+    @admin.display(description="Album URL")
+    def view_album_link(self, obj):
+        if obj.share_token:
+            url = obj.get_absolute_url()
+            return format_html('<a href="{}">View album</a>', url)
+        return "-"
 
     actions = ["delete_selected_albums"]
 
@@ -49,9 +57,11 @@ class AlbumAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
         send_url = reverse('admin:albums_album_send_emails', args=[object_id])
+        album = Album.objects.get(pk=object_id)
         extra_context['send_emails_button'] = format_html(
             '<a class="button" href="{}">Send Emails</a>', send_url
         )
+    
         return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
 @admin.register(AlbumPhoto)

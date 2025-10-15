@@ -7,6 +7,7 @@ from .models import Album
 def send_emails_view(request, album_id):
     album = get_object_or_404(Album, id=album_id)
     recipients = [e.email for e in album.emails.all()]
+    full_url = request.build_absolute_uri(album.get_absolute_url())
 
     messages.success(
         request,
@@ -15,3 +16,14 @@ def send_emails_view(request, album_id):
 
     change_url = reverse("admin:albums_album_change", args=[album_id])
     return redirect(f"{change_url}?emails_sent=1")
+
+
+def album_view(request, share_token):
+    album = get_object_or_404(Album, share_token=share_token)
+    photos = album.photos.all()
+    
+    context = {
+        'album': album,
+        'photos': photos,
+    }
+    return render(request, 'albums/album_view.html', context)
