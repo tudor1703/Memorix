@@ -5,7 +5,10 @@
     {{ block.super }}
     {% if send_emails_button %}
         <li>
-            {{ send_emails_button|safe }}
+            <form method="post">
+                {% csrf_token %}
+                {{ send_emails_button|safe }}
+            </form>
         </li>
     {% endif %}
 {% endblock %}
