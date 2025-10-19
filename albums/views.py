@@ -11,14 +11,15 @@ from django.core.mail import send_mail
 def send_emails_view(request, album_id):
     if request.method == 'POST':
         album = Album.objects.get(id=album_id)
+        recipient_list = [e.email for e in album.emails.all()]
         send_mail(
-            subject="Test Email",
-            message="This is a test email from Memorix.",
+            subject="Your Memorix Album",
+            message="Here is your link to your albume:" \
+            "http://127.0.0.1:8000/albums/2255c111-866a-4b61-b6b4-b90b0342690c/",
             from_email=EMAIL_HOST_USER,
-            recipient_list=["mircatudor06@gmail.com"],
+            recipient_list=recipient_list,
         )
-        return HttpResponse("Email sent successfully!")
-    return render(request, "albums/send_email.html")
+        return render(request, "albums/send_email.html")
 
 def album_view(request, share_token):
     album = get_object_or_404(Album, share_token=share_token)
