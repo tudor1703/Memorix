@@ -57,9 +57,7 @@ class AlbumAdmin(admin.ModelAdmin):
     def change_view(self, request, object_id, form_url='', extra_context=None):
         extra_context = extra_context or {}
         send_url = reverse('admin:albums_album_send_emails', args=[object_id])
-        extra_context['send_emails_button'] = format_html(
-            '<button type="submit" formaction="{}">Send Emails</button>', send_url
-        )
+        extra_context['send_url'] = send_url
         return super().change_view(request, object_id, form_url, extra_context=extra_context)
 
 

@@ -4,22 +4,35 @@ from django.contrib import messages
 
 from memorix.settings import EMAIL_HOST_USER
 from .models import Album
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.core.mail import send_mail
 
+
+from django.http import JsonResponse, HttpResponseRedirect
+from django.urls import reverse
+
+from django.http import JsonResponse
 
 def send_emails_view(request, album_id):
     if request.method == 'POST':
         album = Album.objects.get(id=album_id)
         recipient_list = [e.email for e in album.emails.all()]
+        
+        if not recipient_list:
+            return JsonResponse({'message': 'No recipients found. Email not sent.'})
+        
+        link = request.build_absolute_uri(album.get_absolute_url())
+
         send_mail(
             subject="Your Memorix Album",
-            message="Here is your link to your albume:" \
-            "http://127.0.0.1:8000/albums/2255c111-866a-4b61-b6b4-b90b0342690c/",
+            message=f"Here is your link to your album: {link}",
             from_email=EMAIL_HOST_USER,
             recipient_list=recipient_list,
         )
-        return render(request, "albums/send_email.html")
+        return JsonResponse({'message': 'Email sent successfully!'})
+    else:
+        return JsonResponse({'message': 'Invalid request method.'}, status=400)
+
 
 def album_view(request, share_token):
     album = get_object_or_404(Album, share_token=share_token)
