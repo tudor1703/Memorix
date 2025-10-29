@@ -1,60 +1,21 @@
 {% extends "admin/change_form.html" %}
+
+{% load static %}
+
 {% block object-tools-items %}
     {{ block.super }}
+
     {% if send_url %}
         <li>
-            <form id="send-email-form" action="{{ send_url }}" method="post">
+            <form id="send-email-form" action="{{ send_url }}" method="post" class="inline-form">
                 {% csrf_token %}
                 <button type="submit" class="button">Send</button>
             </form>
         </li>
 
-        <!-- Bara de mesaj -->
-        <div id="email-message"
-             style="display:none; position:fixed; top:px; left:0; width:100%; text-align:center;
-                    background-color:#28a745; color:white; padding:12px 0; font-weight:bold;
-                    z-index:9999; box-shadow:0 2px 5px rgba(0,0,0,0.2); opacity:0; transition:opacity 0.5s;">
-        </div>
+        <div id="email-message" class="email-message"></div>
 
-        <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const form = document.getElementById('send-email-form');
-            const messageBox = document.getElementById('email-message');
-
-            form.addEventListener('submit', function(e) {
-                e.preventDefault();
-
-                fetch(form.action, {
-                    method: 'POST',
-                    body: new FormData(form),
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    messageBox.textContent = data.message;
-                    messageBox.style.backgroundColor = data.message.includes('success')
-                        ? '#28a745' : '#dc3545';
-                    messageBox.style.display = 'block';
-                    setTimeout(() => messageBox.style.opacity = '1', 10);
-
-                    setTimeout(() => {
-                        messageBox.style.opacity = '0';
-                        setTimeout(() => messageBox.style.display = 'none', 500);
-                    }, 2000);
-                })
-                .catch(() => {
-                    messageBox.textContent = 'An error occurred.';
-                    messageBox.style.backgroundColor = '#dc3545';
-                    messageBox.style.display = 'block';
-                    messageBox.style.opacity = '1';
-
-                    setTimeout(() => {
-                        messageBox.style.opacity = '0';
-                        setTimeout(() => messageBox.style.display = 'none', 500);
-                    }, 2000);
-                });
-            });
-        });
-        </script>
+        <link rel="stylesheet" href="{% static 'albums/css/change_form.css' %}">
+        <script src="{% static 'albums/js/change_form.js' %}"></script>
     {% endif %}
 {% endblock %}
