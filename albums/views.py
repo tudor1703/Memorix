@@ -19,7 +19,8 @@ def send_emails_view(request, album_id):
         recipient_list = [e.email for e in album.emails.all()]
         
         if not recipient_list:
-            return JsonResponse({'message': 'No recipients found. Email not sent.'})
+            messages.warning(request, "No email addresses associated with this album.")
+            return redirect("admin:albums_album_change", album_id)
         
         link = request.build_absolute_uri(album.get_absolute_url())
 
@@ -29,9 +30,8 @@ def send_emails_view(request, album_id):
             from_email=EMAIL_HOST_USER,
             recipient_list=recipient_list,
         )
-        return JsonResponse({'message': 'Email sent successfully!'})
-    else:
-        return JsonResponse({'message': 'Invalid request method.'}, status=400)
+        messages.success(request, "Emails sent successfully.")
+        return redirect("admin:albums_album_change", album_id)
 
 
 def album_view(request, share_token):
