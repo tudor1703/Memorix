@@ -1,6 +1,107 @@
-<h2>Register</h2>
-<form method="post">
+{% load static %}
+
+<!doctype html>
+
+<html lang="ro">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MemoriX — Sign up (Replica)</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'accounts/css/register.css' %}">
+</head>
+<body>
+  <header class="topbar">
+    <div class="container">
+      <div class="logo">Memori<span class="x">X</span></div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card">
+      <h1>Sign up</h1>
+
+  <div class="auth-row">
+    <button class="btn-auth" id="googleBtn" title="Continue with Google" type="button">
+      <img src="{% static 'accounts/img/google-logo.png' %}" alt="Google logo" style="width:24px; height:24px; vertical-align:middle; margin-right:8px;">
+      <span>Continue with Google</span>
+    </button>
+
+    <button class="btn-auth" id="fbBtn" title="Continue with Facebook" type="button">
+      <img src="{% static 'accounts/img/facebook-logo.png' %}" alt="Facebook logo" style="width:24px; height:24px; vertical-align:middle; margin-right:8px;">
+      <span>Continue with Facebook</span>
+    </button>
+  </div>
+
+  <div class="divider"><div class="line"></div><span>OR</span><div class="line"></div></div>
+
+  <form method="POST" novalidate>
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Register</button>
-</form>
+
+    {% if form.non_field_errors %}
+      <div class="errors">
+        {% for error in form.non_field_errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="two">
+      <div class="col field">
+        <label for="id_first_name">First name</label>
+        {{ form.first_name }}
+        {% for error in form.first_name.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+      <div class="col field">
+        <label for="id_last_name">Last name</label>
+        {{ form.last_name }}
+        {% for error in form.last_name.errors %}
+          <p class="error">{{ error }}</p>
+        {% endfor %}
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="id_email">E-mail</label>
+      {{ form.email }}
+      {% for error in form.email.errors %}
+        <p class="error">{{ error }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="field password-wrap">
+      <label for="id_password1">Password</label>
+      {{ form.password1 }}
+      <button type="button" class="toggle-eye" id="togglePwd" aria-label="Show password">👁️</button>
+      {% for error in form.password1.errors %}
+        <p class="error">{{ error }}</p>
+      {% endfor %}
+    </div>
+
+    <div class="field">
+      <label for="id_password2">Confirm Password</label>
+      {{ form.password2 }}
+      {% for error in form.password2.errors %}
+        <p class="error">{{ error }}</p>
+      {% endfor %}
+    </div>
+
+    <label class="chk"><input type="checkbox" id="tips"> Send me emails with tips on how to find talent that fits my needs.</label>
+    <label class="chk"><input type="checkbox" id="agree" required> Yes, I understand and agree to the MemoriX Teams of Service, including the User Agreement and Privacy Policy</label>
+
+    <div class="submit">
+      <button type="submit" id="createBtn">Create my account</button>
+    </div>
+
+    <p class="footer">Already have an account? <a href="{% url 'login' %}" id="loginLink">Log In</a></p>
+  </form>
+</section>
+
+  </main>
+
+  <script src="{% static 'accounts/js/register.js' %}"></script>
+
+</body>
+</html>

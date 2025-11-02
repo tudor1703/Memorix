@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <title>Activare reușită</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9fafc;
+      text-align: center;
+      margin-top: 100px;
+    }
+    .card {
+      background: white;
+      display: inline-block;
+      padding: 30px 50px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      color: #333;
+    }
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #007bff;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+    .btn:hover {
+      background: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>Cont activat cu succes!</h2>
+    <p>Bine ai revenit, {{ user.first_name|default:user.email }} 👋</p>
+    <a href="{% url 'profile' %}" class="btn">Mergi acasă</a>
+  </div>
+</body>
+</html>

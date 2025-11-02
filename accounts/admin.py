@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-
 from .forms import CustomUserCreationForm, CustomUserChangeForm
-from .models import CustomUser 
-from albums.models import Album, AlbumPhoto, AlbumEmail
+from .models import CustomUser
+from albums.models import Album
 
 class AlbumInline(admin.TabularInline):
     model = Album
@@ -12,13 +11,14 @@ class AlbumInline(admin.TabularInline):
     extra = 0
     show_change_link = True
 
+
 class CustomUserAdmin(UserAdmin):
     add_form = CustomUserCreationForm
     form = CustomUserChangeForm
     model = CustomUser
 
-    list_display = ("email", "first_name", "last_name", "user_type", "is_staff", "is_active")
-    list_filter = ("user_type", "is_staff", "is_active")
+    list_display = ("email", "first_name", "last_name", "is_staff", "is_active")
+    list_filter = ("is_staff", "is_active")
     search_fields = ("email", "first_name", "last_name")
     ordering = ("email",)
 
