@@ -1,18 +1,98 @@
+{% load static %}
+
 <!DOCTYPE html>
-<html lang="ro">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Profilul tău</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      text-align: center;
-      margin-top: 100px;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MemoriX</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/profile.css' %}">
 </head>
 <body>
-  <h2>Bun venit pe pagina ta, {{ user.first_name|default:user.email }}!</h2>
-  <p>Aici va fi profilul tău personal.</p>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo"><span class="green">Memori</span><span class="gray">X</span></div>
+    <nav class="nav-links">
+      <a href="#">Profil</a>
+      <a href="#">Despre</a>
+      <a href="#">Funcții</a>
+      <a href="#">Contact</a>
+    </nav>
+    <div class="profile">
+      <div class="notif"></div>
+      <div class="profile-name">Daniel</div>
+      <div class="avatar"></div>
+    </div>
+  </header>
+
+  {% if messages %}
+  <div class="messages">
+    {% for message in messages %}
+      <div class="message {{ message.tags }}">{{ message }}</div>
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  <main class="container">
+    <section class="left">
+      <div class="albums-section">
+        <h2>My albums</h2>
+        <div class="album-list">
+          {% if my_albums %}
+            {% for album in my_albums %}
+              <div class="album">
+                {% if album.photos.first %}
+                  <img src="{{ album.photos.first.photo.url }}" alt="{{ album.title }}">
+                {% else %}
+                  <img src="{% static 'accounts/images/default_album.jpg' %}" alt="{{ album.title }}">
+                {% endif %}
+                <p>{{ album.title }}</p>
+              </div>
+            {% endfor %}
+          {% else %}
+            <p>Nu ai încă albume.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <div class="albums-section">
+        <h2>Common albums</h2>
+        <div class="album-list">
+          <div class="album"><img src="imagini/wedding.jpg" alt="Wedding" /><p>Wedding</p></div>
+          <div class="album"><img src="imagini/graduation.jpg" alt="Graduation" /><p>Graduation</p></div>
+          <div class="album"><img src="imagini/anniversary.jpg" alt="Anniversary" /><p>Anniversary</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="right">
+      <div class="saved-section">
+        <h2>Saved</h2>
+        <div class="saved-gallery">
+          <img src="{% static 'accounts/images/saved1.jpg' %}" alt="Saved 1" class="saved-card">
+          <img src="{% static 'accounts/images/saved2.jpg' %}" alt="Saved 2" class="saved-card">
+          <img src="{% static 'accounts/images/saved3.jpg' %}" alt="Saved 3" class="saved-card">
+          <img src="{% static 'accounts/images/saved4.jpg' %}" alt="Saved 4" class="saved-card">
+          <img src="{% static 'accounts/images/saved5.jpg' %}" alt="Saved 5" class="saved-card">
+          <img src="{% static 'accounts/images/saved6.jpg' %}" alt="Saved 6" class="saved-card">
+        </div>
+      </div>
+
+      <div class="cta-section">
+        <p>
+          Capture, Share, and Preserve Your Precious<br />
+          Memories with <span class="green">Memori</span><span class="gray">X</span>
+        </p>
+        <button>Create now</button>
+      </div>
+    </section>
+  </main>
+
+  <div id="image-modal" class="modal">
+    <span class="close">&times;</span>
+    <img class="modal-content" id="modal-img">
+  </div>
+
+  <script src="{% static 'accounts/js/profile.js' %}"></script>
 </body>
 </html>

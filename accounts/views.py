@@ -1,13 +1,16 @@
+from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
-from django.contrib.auth import login
+from django.contrib.auth import authenticate, login
 from django.urls import reverse
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import EmailMultiAlternatives
 from django.conf import settings
+from albums import models
+from albums.models import Album, AlbumEmail
 from .forms import RegisterForm
 from .models import CustomUser
 from django.contrib.auth.decorators import login_required
@@ -62,4 +65,46 @@ def activate_view(request, uidb64, token):
         return render(request, 'accounts/activation_invalid.html')
 
 def profile_view(request):
-    return render(request, 'accounts/profile.html')
+    user = request.user
+
+    try:
+        user_email_obj = AlbumEmail.objects.get(email=user.email)
+    except AlbumEmail.DoesNotExist:
+        user_email_obj = None
+
+    if user_email_obj:
+        my_albums = Album.objects.filter(
+            models.Q(user=user) | models.Q(emails=user_email_obj)
+        ).distinct()
+    else:
+        my_albums = Album.objects.filter(user=user)
+
+    context = {
+        "my_albums": my_albums,
+    }
+    return render(request, "accounts/profile.html", context)
+
+def login_view(request):
+    if request.method == "POST":
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "")
+
+        if not email or not password:
+            messages.error(request, "Completează email și parolă.")
+            return render(request, "accounts/login.html", {"email": email})
+
+        user = authenticate(request, email=email, password=password)
+
+        if user is not None:
+            if user.is_active:
+                if user.is_active:
+                   login(request, user)
+                   return redirect("profile")
+            else:
+                messages.warning(request, "Contul tău nu este activ. Verifică email-ul pentru activare.")
+                return render(request, "accounts/login.html", {"email": email})
+        else:
+            messages.error(request, "Email sau parolă incorectă! Încearcă din nou.")
+            return render(request, "accounts/login.html", {"email": email})
+
+    return render(request, "accounts/login.html")
