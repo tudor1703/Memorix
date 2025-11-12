@@ -1,0 +1,145 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MemoriX</title>
+    <link rel="stylesheet" href="{% static 'memorix/css/index.css' %}">
+</head>
+<body>
+
+    <header class="site-header">
+      <div class="container">
+        <div class="logo">MemoriX</div>
+        <nav class="main-nav">
+          <a href="#">Acasă</a>
+          <a href="#">Despre</a>
+          <a href="#">Funcții</a>
+          <a href="#">Contact</a>
+          <button class="login-btn" onclick="window.location.href='{% url 'register' %}'">Register</button>
+        </nav>
+      </div>
+    </header>
+
+    <section class="hero-section">
+
+        <div class="hero-text">
+            <h1>Capturează,<br>Distribuie și<br>Preservă Amintirile Tale Prețioase</h1>
+            <p>Salvează și împărtășește fotografii, albume și povești care contează, cu funcții simple și sigure pentru fiecare utilizator.</p>
+            <button class="ctf-btn" onclick="window.location.href='{% url 'register' %}'">Încearcă acum</button>
+        </div>
+        <div class="hero-gallery">
+          <img src="{% static 'memorix/images/graduate.jpg' %}" alt="gallery">
+          <img src="{% static 'memorix/images/graduate.jpg' %}" alt="gallery">
+          <img src="{% static 'memorix/images/graduate.jpg' %}" alt="gallery">
+          <img src="{% static 'memorix/images/graduate.jpg' %}" alt="gallery">
+          <img src="{% static 'memorix/images/graduate.jpg' %}" alt="gallery">
+          <img src="{% static 'memorix/images/graduate.jpg' %}" alt="gallery">
+        </div>
+
+    </section>
+
+    <section class="promo-section">
+      <div class="promo-gallery">
+        <div class="promo-main">
+          <img src="{% static 'memorix/images/graduate.jpg' %}" alt="main">
+        </div>
+          <img class="promo-side side1" src="{% static 'memorix/images/graduate.jpg' %}" alt="side">
+          <img class="promo-side side2" src="{% static 'memorix/images/graduate.jpg' %}" alt="side">
+          <img class="promo-side side3" src="{% static 'memorix/images/graduate.jpg' %}" alt="side">
+        </div>
+
+        <div class="promo-text">
+          <h2>Transformă Experiența Ta Fotografică</h2>
+          <p>Descoperă instrumente care îți aduc amintirile mai aproape de cei dragi.</p>
+          <button class="cta-outline">Citește Mai Mult</button>
+      </div>
+    </section>
+
+    <section class="features-section">
+      <h2 class="features-heading">Titlu mediu secțiune</h2>
+      <p class="features-desc">Aici poți pune o scurtă descriere a avantajelor platformei, subliniind beneficiile folosirii serviciului MemoriX.</p>
+
+      <div class="features-cards">
+        <div class="feature-card">
+            <h3>Card 1</h3>
+            <p>Descriere scurtă pentru card 1</p>
+        </div>
+        <div class="feature-card">
+            <h3>Card 2</h3>
+            <p>Descriere scurtă pentru card 2</p>
+        </div>
+        <div class="feature-card">
+            <h3>Card 3</h3>
+            <p>Descriere scurtă pentru card 3</p>
+        </div>
+        <div class="feature-card">
+            <h3>Card 4</h3>
+            <p>Descriere scurtă pentru card 4</p>
+        </div>
+      </div>
+
+      <div class="features-gallery">
+        <img src="{% static 'memorix/images/graduate.jpg' %}" alt="feature-img1">
+        <img src="{% static 'memorix/images/graduate.jpg' %}" alt="feature-img2">
+        <img src="{% static 'memorix/images/graduate.jpg' %}" alt="feature-img3">
+        <img src="{% static 'memorix/images/graduate.jpg' %}" alt="feature-img4">
+      </div>
+
+      <button class="cta-outline">Află Mai Mult</button>
+    </section>
+
+
+
+    <section class="how-section">
+      <h2>Cum Funcționează MemoriX</h2>
+
+      <div class="how-cards">
+        <div class="how-card">
+            <img src="{% static 'memorix/images/graduate.jpg' %}" alt="prof">
+            <h3>Creează Profilul</h3>
+            <p>Completează câteva date personale și personalizează profilul tău.</p>
+        </div>
+        <div class="how-card">
+            <img src="{% static 'memorix/images/graduate.jpg' %}" alt="conn">
+            <h3>Conectează-te cu Clienți</h3>
+            <p>Găsește și colaborează cu persoane care apreciază arta ta fotografică.</p>
+        </div>
+        <div class="how-card">
+            <img src="{% static 'memorix/images/graduate.jpg' %}" alt="share">
+            <h3>Distribuie/Preservă Amintiri</h3>
+            <p>Încarcă imagini, creează albume, împărtășește momente și salvează-le online în siguranță.</p>
+        </div>
+      </div>
+      
+      <button class="cta-btn">Citește Ghidul</button>
+    </section>
+
+
+    <section class="extra-footer-section">
+      <div class="footer-main">
+        <div class="footer-links">
+            <a href="#">Acasă</a>
+            <a href="#">Despre</a>
+            <a href="#">Funcții</a>
+            <a href="#">Contact</a>
+            <a href="#">Login</a>
+        </div>
+      </div>
+
+      <div class="footer-brand">
+        <div class="logo">MemoriX</div>
+        <div class="footer-social">
+            <img src="{% static 'images/facebook.svg' %}" alt="Facebook">
+            <img src="{% static 'images/instagram.svg' %}" alt="Instagram">
+            <img src="{% static 'images/twitter.svg' %}" alt="Twitter">
+        </div>
+      </div>
+
+      <div class="footer-copy">© 2025 memorix.info</div>
+    </section>
+    
+    <script src="{% static 'memorix/js/index.js' %}"></script>
+</body>
+</html>

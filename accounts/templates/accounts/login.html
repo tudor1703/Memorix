@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MemoriX - Sign In</title>
+  <link rel="stylesheet" href="{% static 'accounts/css/login.css' %}" />
+</head>
+<body>
+  <div class="container">
+    <div class="left-panel">
+      <div class="logo"><span class="green">Memori</span><span class="black">X</span></div>
+      <h1>Log In</h1>
+      <p class="signup-text">
+        <p class="login-link">Don’t have an account?  <a href="{% url 'register' %}">Create now</a></p>
+      </p>
+      <br>
+
+      <form class="login-form">
+        {% csrf_token %}
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="username" placeholder="Email" />
+
+        <label for="password">Password</label>
+        <div class="password-wrapper">
+          <input type="password" id="password" name="password" placeholder="Password" />
+          <button type="button" class="toggle-password">👁</button>
+        </div>
+
+        <div class="options">
+          <label class="remember">
+            <input type="checkbox" name="remember" />
+            <span>Remember me</span>
+          </label>
+          <a href="#" class="forgot">Forgot Password?</a>
+        </div>
+
+        <button type="submit" class="sign-in-btn">Sign in</button>
+      </form>
+
+      <div class="divider"><span>OR</span></div>
+
+      <button class="google-btn">
+        <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google logo">
+        <span>Continue with Google</span>
+      </button>
+      <button class="facebook-btn">
+        <img src="https://www.svgrepo.com/show/448224/facebook.svg" alt="Facebook logo">
+        <span>Continue with Facebook</span>
+      </button>
+    </div>
+
+    <div class="right-panel">
+      <img src="{% static 'accounts/images/graduation-grid.png' %}" alt="Graduation memories" class="right-image">
+    </div>
+  </div>
+
+  <script src="{% static 'accounts/js/login.js' %}"></script>
+</body>
+</html>
