@@ -181,3 +181,16 @@ h1 {
   height: 100vh;
   object-fit: cover;
 }
+
+.messages {
+  list-style: none;
+  margin-bottom: 1rem;
+}
+.message {
+  padding: 0.6rem 1rem;
+  margin-bottom: 0.5rem;
+  border-radius: 5px;
+}
+.message.success { background-color: #d4edda; color: #155724; }
+.message.error { background-color: #f8d7da; color: #721c24; }
+.message.warning { background-color: #fff3cd; color: #856404; }

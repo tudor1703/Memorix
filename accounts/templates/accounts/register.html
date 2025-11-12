@@ -19,21 +19,7 @@
 
   <main class="wrap">
     <section class="card">
-      <h1>Sign up</h1>
-
-  <div class="auth-row">
-    <button class="btn-auth" id="googleBtn" title="Continue with Google" type="button">
-      <img src="{% static 'accounts/img/google-logo.png' %}" alt="Google logo" style="width:24px; height:24px; vertical-align:middle; margin-right:8px;">
-      <span>Continue with Google</span>
-    </button>
-
-    <button class="btn-auth" id="fbBtn" title="Continue with Facebook" type="button">
-      <img src="{% static 'accounts/img/facebook-logo.png' %}" alt="Facebook logo" style="width:24px; height:24px; vertical-align:middle; margin-right:8px;">
-      <span>Continue with Facebook</span>
-    </button>
-  </div>
-
-  <div class="divider"><div class="line"></div><span>OR</span><div class="line"></div></div>
+      <h1>Register</h1>
 
   <form method="POST" novalidate>
     {% csrf_token %}
