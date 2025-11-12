@@ -16,11 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   togglePwd.addEventListener('click', () => {
     if (passwordInput.type === 'password') {
-      passwordInput.type = 'text';
-      togglePwd.textContent = '🙈';
+        passwordInput.type = 'text';
+        togglePwd.textContent = '🙈';
     } else {
-      passwordInput.type = 'password';
-      togglePwd.textContent = '👁️';
+        passwordInput.type = 'password';
+        togglePwd.textContent = '👁️';
     }
   });
 

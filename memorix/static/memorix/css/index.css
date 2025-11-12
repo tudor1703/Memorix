@@ -85,6 +85,7 @@ section {
 /* =====================================================
    5. BUTTONS
 ===================================================== */
+
 .login-btn, 
 .cta-btn, .ctf-btn {
     background: var(--primary);
@@ -95,9 +96,6 @@ section {
     font-weight: 700;
 }
 
-.login-btn {
-    padding: 0.6rem 1.4rem;
-}
 
 .cta-btn, .ctf-btn {
     padding: 0.8rem 2rem;
@@ -114,6 +112,38 @@ section {
     cursor: pointer;
     margin-top: 1rem;
     font-weight: 600;
+}
+
+.btn {
+    border-radius: var(--br);
+    cursor: pointer;
+    font-weight: 700;
+    padding: 0.5rem 1.2rem;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.btn-register {
+    background: var(--primary);
+    color: #ffffff;
+    border: none;
+}
+
+.btn-register:hover {
+    opacity: 0.9;
+}
+
+.btn-login {
+    background: #ffffff;
+    color: var(--primary);
+    border: none;
+    box-shadow: inset 0 0 0 2px var(--primary);
+}
+
+.btn-login:hover {
+    background: var(--primary);
+    color: #ffffff;
+    box-shadow: none;
 }
 
 /* =====================================================

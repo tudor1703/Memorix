@@ -1,16 +1,11 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 from django.contrib import messages
-
 from memorix.settings import EMAIL_HOST_USER
 from .models import Album
 from django.http import HttpResponseRedirect, JsonResponse
 from django.core.mail import send_mail
-
-
 from django.http import JsonResponse, HttpResponseRedirect
-from django.urls import reverse
-
 from django.http import JsonResponse
 
 def send_emails_view(request, album_id):
